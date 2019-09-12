@@ -1,8 +1,10 @@
+#!/usr/bin/env node
+
 const fs = require("fs");
 const path = require("path");
 const yargs = require("yargs");
 
-const version = "0.0.1";
+const version = "0.0.2";
 const argv = yargs
   .option("version", {
     alias: "v",

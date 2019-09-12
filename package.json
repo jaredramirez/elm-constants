@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "description": "Generate constant values in Elm from your environment",
   "main": "index.js",
-  "author": "Jared Ramirez",
+  "author": "Jared Ramirez <jaredramirez@me.com>",
+  "repository": "https://github.com/jaredramirez/elm-constants",
   "license": "BSD-3-Clause",
   "dependencies": {
     "dotenv": "^8.1.0",

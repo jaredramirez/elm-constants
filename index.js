@@ -15,7 +15,7 @@ const argv = yargs
   })
   .option("config", {
     alias: "c",
-    description: "Path to elm-constants.json",
+    description: "Path to config file",
     type: "string"
   })
   .help()

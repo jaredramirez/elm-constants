@@ -36,7 +36,7 @@ you can specify an array where the first value is the environment variable and t
 
 Then, in your pre-build step, run `yarn elm-constants` (or `npx elm-constants`) to generate an Elm file!
 
-Based on the above config, you would get:
+Based on the above config, you would get something like:
 ```
 module Constants exposing (googleApiKey, serverUrl)
 

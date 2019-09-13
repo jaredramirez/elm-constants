@@ -34,7 +34,22 @@ a regular string, this tool will automatically convert it to a valid Elm variabl
 it would generate `googleApiKey`. If you're not happy with the generated name or just want to rename it anyways,
 you can specify an array where the first value is the environment variable and the second is the Elm name.
 
-Then, in your pre-build step, run `yarn elm-constants` (or `npx elm-constants`)!
+Then, in your pre-build step, run `yarn elm-constants` (or `npx elm-constants`) to generate an Elm file!
+
+Based on the above config, you would get:
+```
+module Constants exposing (googleApiKey, serverUrl)
+
+
+googleApiKey : String
+googleApiKey =
+    "def"
+
+
+serverUrl : String
+serverUrl =
+    "
+```
 
 
 # CLI Options

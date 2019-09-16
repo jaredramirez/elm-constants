@@ -46,8 +46,8 @@ googleApiKey =
     "def"
 
 
-serverUrl : String
-serverUrl =
+backendUrl : String
+backendUrl =
     "abc"
 ```
 

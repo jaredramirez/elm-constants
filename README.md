@@ -2,7 +2,7 @@
 
 > Generate constant values in Elm from your environment
 
-Based on a config file, this tool will geneate an Elm file of enviroment variables so you don't
+Based on a config file, this tool will generate an Elm file of environment variables so you don't
 have to pass them to Elm with flags and keep them around in your model.
 
 # Install

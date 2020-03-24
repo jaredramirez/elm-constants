@@ -1,1 +1,4 @@
 node_modules
+elm-constants.json
+src/**/*.*
+.env

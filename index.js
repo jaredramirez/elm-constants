@@ -134,17 +134,19 @@ try {
   const [exposingValues, elmValues] = values.reduce(
     (acc, cur) => {
       const [envValueName, elmName] = Array.isArray(cur) ? cur : [cur, cur];
+      const envValue = process.env[envValueName];
+      if (envValue === null || envValue === undefined) {
+        throw new Error(
+          `The env variable "${envValueName}" wasn't found. ` +
+            `Maybe you forgot to set it?`
+        );
+      }
 
       const [accExposing, accElmValue] = acc;
-      const envValue = process.env[envValueName];
-      if (envValue) {
-        return [
-          [elmName].concat(accExposing),
-          [toElmValue(elmName, envValue)].concat(accElmValue)
-        ];
-      } else {
-        return acc;
-      }
+      return [
+        [elmName].concat(accExposing),
+        [toElmValue(elmName, envValue)].concat(accElmValue)
+      ];
     },
     [[], []]
   );

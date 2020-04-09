@@ -27,12 +27,6 @@ if (argv.version) {
   console.log(version);
 }
 
-if (typeof argv.dotenv !== "boolean" || argv.dotenv !== false) {
-  if (process.env.NODE_ENV !== "production") {
-    require("dotenv").config();
-  }
-}
-
 let config;
 try {
   const configFilePath = path.normalize(
@@ -76,6 +70,27 @@ try {
       'The field "values" in the config file was empty. ' +
         "There's nothing for me to do!"
     );
+  }
+
+  if (typeof argv.dotenv !== "boolean" || argv.dotenv !== false) {
+    const envPath = config.envPath || process.cwd();
+    let envFileName = '.env';
+    if (process.env.NODE_ENV) {
+      envFileName += `.${process.env.NODE_ENV}`;
+    }
+
+    const envFilePath = path.resolve(envPath, envFileName);
+    if (!fs.existsSync(envFilePath)) {
+      throw new Error(
+        `I couldn't find "${envFileName}" file at "${envPath}"`
+      );
+    }
+
+    if (process.env.NODE_ENV !== "production") {
+      require("dotenv").config({
+        path: envFilePath,
+      });
+    }
   }
 
   const isValidElmVar = str => new RegExp(/^[a-z]\w+$/).test(str);

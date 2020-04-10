@@ -21,7 +21,6 @@ Populate it like this:
 ```
 {
   "path": "./path/to/elm/dir",
-  "envPath": "./path/to/env/dir",
   "moduleName": "Constants",
   "values": [
     ["SERVER_URL", "backendUrl"],
@@ -30,7 +29,6 @@ Populate it like this:
 }
 ```
 
-`envPath` is optional and defaults to current working directory.
 For the `values` field you can have either a regular string or an array with two values. If you specify
 a regular string, this tool will automatically convert it to a valid Elm variable name. In the case of `GOOGLE_API_KEY`,
 it would generate `googleApiKey`. If you're not happy with the generated name or just want to rename it anyways,
@@ -59,6 +57,7 @@ backendUrl =
 Options:
   --version, -v  Print the installed version                      [boolean]
   --no-dotenv    Dont' use dotenv                                 [boolean]
+  --path, -p     Path to env file                                 [string]
   --config, -c   Path to config file                              [string]
   --help, -h     Show help                                        [boolean]
 ```
@@ -69,7 +68,6 @@ The schema for the config file.
 
 ```
 { "path": : String
-, "envPath" ?: String
 , "moduleName" : String
 , "values" : [String, String] | String
 }
@@ -77,11 +75,9 @@ The schema for the config file.
 
 # Dotenv
 
-This package automatically works with [`dotenv`](https://github.com/motdotla/dotenv) and also extends it adding
-the hability to have multiple `.env*` files like `.env.development`, `.env.test` and so on.
-This will read environment variables from the `.env` located at provided `envPath` (or defaulting to current
-working directory). Additionally, if the `NODE_ENV` environment variable is set, then `.env.${NODE_ENV}` file is
-loaded.
+This package automatically works with [`dotenv`](https://github.com/motdotla/dotenv).
+By default this will look for an `.env` file at current working directory. Alternatively you 
+may provide a path flag (`--path`) for a custom file such as `--path=./env/.env.staging`.
 If you run `elm-constants` in and `NODE_ENV` is **not** `production`, then this tool automatically loads that file.
 
 If you want to turn this off, just pass `--no-dotenv` to `elm-constants`

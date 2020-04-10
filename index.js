@@ -15,6 +15,11 @@ const argv = yargs
     description: "Dont' use dotenv",
     type: "boolean"
   })
+  .option("path", {
+    alias: "p",
+    description: "Path to env file",
+    type: "string",
+  })
   .option("config", {
     alias: "c",
     description: "Path to config file",
@@ -73,22 +78,20 @@ try {
   }
 
   if (typeof argv.dotenv !== "boolean" || argv.dotenv !== false) {
-    const envPath = config.envPath || process.cwd();
-    let envFileName = '.env';
-    if (process.env.NODE_ENV) {
-      envFileName += `.${process.env.NODE_ENV}`;
-    }
-
-    const envFilePath = path.resolve(envPath, envFileName);
-    if (!fs.existsSync(envFilePath)) {
-      throw new Error(
-        `I couldn't find "${envFileName}" file at "${envPath}"`
-      );
+    let envPath = path.resolve(process.cwd(), '.env');
+    if (typeof argv.path === "string") {
+      const PATH_REGEXP = /^.*\.(env)($|\..+$)/;
+      if (!fs.existsSync(argv.path) || !PATH_REGEXP.test(argv.path)) {
+        throw new Error(
+          `I couldn't find an env file at "${argv.path}"`
+        );
+      }
+      envPath = argv.path;
     }
 
     if (process.env.NODE_ENV !== "production") {
       require("dotenv").config({
-        path: envFilePath,
+        path: envPath,
       });
     }
   }

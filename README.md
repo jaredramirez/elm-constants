@@ -55,11 +55,11 @@ backendUrl =
 # CLI Options
 ```
 Options:
-  --version, -v  Print the installed version                      [boolean]
-  --no-dotenv    Dont' use dotenv                                 [boolean]
-  --path, -p     Path to env file                                 [string]
-  --config, -c   Path to config file                              [string]
-  --help, -h     Show help                                        [boolean]
+  --version, -v     Print the installed version                  [boolean]
+  --no-dotenv       Dont' use dotenv                             [boolean]
+  --env-path, -p    Path to env file                             [string]
+  --config, -c      Path to config file                          [string]
+  --help, -h        Show help                                    [boolean]
 ```
 
 ## Config Schema
@@ -77,7 +77,7 @@ The schema for the config file.
 
 This package automatically works with [`dotenv`](https://github.com/motdotla/dotenv).
 By default this will look for an `.env` file at current working directory. Alternatively you 
-may provide a path flag (`--path`) for a custom file such as `--path=./env/.env.staging`.
+may provide a path flag (`--env-path`) for a custom file such as `--env-path=./env/.env.staging`.
 If you run `elm-constants` in and `NODE_ENV` is **not** `production`, then this tool automatically loads that file.
 
 If you want to turn this off, just pass `--no-dotenv` to `elm-constants`

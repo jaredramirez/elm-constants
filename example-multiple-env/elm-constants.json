@@ -1,0 +1,8 @@
+{
+  "path": ".",
+  "moduleName": "Constants",
+  "values": [
+    ["SERVER_URL", "serverUrl"],
+    "GOOGLE_API_KEY"
+  ]
+}

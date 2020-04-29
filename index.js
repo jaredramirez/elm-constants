@@ -15,6 +15,11 @@ const argv = yargs
     description: "Dont' use dotenv",
     type: "boolean"
   })
+  .option("env-path", {
+    alias: "p",
+    description: "Path to env file",
+    type: "string",
+  })
   .option("config", {
     alias: "c",
     description: "Path to config file",
@@ -25,12 +30,6 @@ const argv = yargs
 
 if (argv.version) {
   console.log(version);
-}
-
-if (typeof argv.dotenv !== "boolean" || argv.dotenv !== false) {
-  if (process.env.NODE_ENV !== "production") {
-    require("dotenv").config();
-  }
 }
 
 let config;
@@ -76,6 +75,25 @@ try {
       'The field "values" in the config file was empty. ' +
         "There's nothing for me to do!"
     );
+  }
+
+  if (typeof argv.dotenv !== "boolean" || argv.dotenv !== false) {
+    let envPath = path.resolve(process.cwd(), '.env');
+    if (typeof argv.envPath === "string") {
+      const PATH_REGEXP = /^.*\.(env)($|\..+$)/;
+      if (!fs.existsSync(argv.envPath) || !PATH_REGEXP.test(argv.envPath)) {
+        throw new Error(
+          `I couldn't find an env file at "${argv.envPath}"`
+        );
+      }
+      envPath = argv.envPath;
+    }
+
+    if (process.env.NODE_ENV !== "production") {
+      require("dotenv").config({
+        path: envPath,
+      });
+    }
   }
 
   const isValidElmVar = str => new RegExp(/^[a-z]\w+$/).test(str);

@@ -4,16 +4,16 @@ const fs = require("fs");
 const path = require("path");
 const yargs = require("yargs");
 
-const version = "0.0.2";
+const version = "1.0.0";
 const argv = yargs
   .option("version", {
     alias: "v",
     description: "Print the installed version",
-    type: "boolean"
+    type: "boolean",
   })
   .option("no-dotenv", {
     description: "Dont' use dotenv",
-    type: "boolean"
+    type: "boolean",
   })
   .option("env-path", {
     alias: "p",
@@ -23,7 +23,7 @@ const argv = yargs
   .option("config", {
     alias: "c",
     description: "Path to config file",
-    type: "string"
+    type: "string",
   })
   .help()
   .alias("help", "h").argv;
@@ -78,13 +78,11 @@ try {
   }
 
   if (typeof argv.dotenv !== "boolean" || argv.dotenv !== false) {
-    let envPath = path.resolve(process.cwd(), '.env');
+    let envPath = path.resolve(process.cwd(), ".env");
     if (typeof argv.envPath === "string") {
       const PATH_REGEXP = /^.*\.(env)($|\..+$)/;
       if (!fs.existsSync(argv.envPath) || !PATH_REGEXP.test(argv.envPath)) {
-        throw new Error(
-          `I couldn't find an env file at "${argv.envPath}"`
-        );
+        throw new Error(`I couldn't find an env file at "${argv.envPath}"`);
       }
       envPath = argv.envPath;
     }
@@ -96,13 +94,13 @@ try {
     }
   }
 
-  const isValidElmVar = str => new RegExp(/^[a-z]\w+$/).test(str);
-  const capitalizeFirstLetter = string =>
+  const isValidElmVar = (str) => new RegExp(/^[a-z]\w+$/).test(str);
+  const capitalizeFirstLetter = (string) =>
     string.charAt(0).toUpperCase() + string.slice(1);
-  const lowercaseFirstLetter = string =>
+  const lowercaseFirstLetter = (string) =>
     string.charAt(0).toLowerCase() + string.slice(1);
 
-  const values = config.values.map(value => {
+  const values = config.values.map((value) => {
     if (Array.isArray(value)) {
       if (value.length !== 2) {
         throw new Error(
@@ -163,7 +161,7 @@ try {
       const [accExposing, accElmValue] = acc;
       return [
         [elmName].concat(accExposing),
-        [toElmValue(elmName, envValue)].concat(accElmValue)
+        [toElmValue(elmName, envValue)].concat(accElmValue),
       ];
     },
     [[], []]

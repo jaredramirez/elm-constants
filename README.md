@@ -18,7 +18,7 @@ or
 Add a config file to the root of your project called `elm-constants.json`.
 
 Populate it like this:
-```
+```json
 {
   "path": "./path/to/elm/dir",
   "moduleName": "Constants",
@@ -37,7 +37,7 @@ you can specify an array where the first value is the environment variable and t
 Then, in your pre-build step, run `yarn elm-constants` (or `npx elm-constants`) to generate an Elm file!
 
 Based on the above config, you would get something like:
-```
+```elm
 module Constants exposing (googleApiKey, serverUrl)
 
 
@@ -67,7 +67,7 @@ Options:
 The schema for the config file.
 
 ```
-{ "path": : String
+{ "path" : String
 , "moduleName" : String
 , "values" : [String, String] | String
 }
@@ -86,7 +86,7 @@ If you want to turn this off, just pass `--no-dotenv` to `elm-constants`
 
 Have you ever been writing an Elm app and started off like this:
 
-```
+```elm
 type alias Flags =
   { serverUrl : String
   , googleApiKey : String
@@ -103,7 +103,7 @@ init flags =
 
 And if you're writing an SPA, you have to pass those flag down to every page:
 
-```
+```elm
 type Msg
   = PageMsg Page.Msg
   
